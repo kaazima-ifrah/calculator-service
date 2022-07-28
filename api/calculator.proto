@@ -1,0 +1,51 @@
+syntax = "proto3";
+option go_package = "../api";
+package api;
+
+message SumRequest {
+  int32 num1 = 1;
+  int32 num2 = 2;
+}
+
+message SumResponse {
+  int32 sum = 1;
+}
+
+message PrimeNumbersRequest {
+  int32 num = 1;
+}
+
+message PrimeNumbersResponse {
+  int32 prime_number = 1;
+}
+
+message ComputeAverageRequest {
+  int32 num = 1;
+}
+
+message ComputeAverageResponse {
+  float average = 1;
+}
+
+message MaxNumberRequest {
+  int32 num = 1;
+}
+
+message MaxNumberResponse {
+  int32 max_number = 1;
+}
+
+service CalculatorService {
+
+  // unary
+  rpc Sum(SumRequest) returns (SumResponse) {}
+
+  // server streaming
+  rpc PrimeNumbers(PrimeNumbersRequest) returns (stream PrimeNumbersResponse) {}
+
+  // client streaming
+  rpc ComputeAverage(stream ComputeAverageRequest) returns (ComputeAverageResponse) {}
+
+  // bi-directional streaming
+  rpc MaxNumber (stream MaxNumberRequest) returns (stream MaxNumberResponse) {}
+}
