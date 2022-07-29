@@ -86,7 +86,6 @@ func (*server) MaxNumber(request api.CalculatorService_MaxNumberServer) error {
 	var max int32 = 0
 	for {
 		req, err := request.Recv()
-
 		if err == io.EOF {
 			return nil
 		}
@@ -94,7 +93,6 @@ func (*server) MaxNumber(request api.CalculatorService_MaxNumberServer) error {
 			log.Fatalf("Error while receiving data from MaxNumberClient : %v", err)
 			return err
 		}
-
 		if req.GetNum() > max {
 			max = req.Num
 			sendErr := request.Send(&api.MaxNumberResponse{
@@ -110,7 +108,7 @@ func (*server) MaxNumber(request api.CalculatorService_MaxNumberServer) error {
 
 func main() {
 	fmt.Println("Starting server on port 50001")
-
+	
 	listen, err := net.Listen("tcp", "0.0.0.0:50001")
 	if err != nil {
 		log.Fatalf("Failed to Listen: %v", err)
